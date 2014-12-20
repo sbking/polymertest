@@ -1,0 +1,17 @@
+<polymer-element name="field-list">
+  <template>
+    <template repeat="{{f in fields}}">
+      <p>{{f.name}} - <input type='text' /></p>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      created: function() {
+        this.fields = Fields.find({}, {sort:{name:1}}).fetchDynamic();
+      },
+      detached: function() {
+        this.fields.stop();
+      }
+    });
+  </script>
+</polymer-element>
