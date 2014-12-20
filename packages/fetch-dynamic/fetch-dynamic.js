@@ -6,9 +6,13 @@ LocalCollection.Cursor.prototype.fetchDynamic = function() {
     },
     changedAt: function(newDocument, oldDocument, atIndex) {
       var doc = data[atIndex];
-      _.each(doc, function(value, key) {
-        var newValue = newDocument[key];
-        if (value !== newValue) {
+
+      _.each(_.difference(_.keys(oldDocument), _.keys(newDocument)), function(key) {
+        doc[key] = undefined;
+      });
+
+      _.each(newDocument, function(newValue, key) {
+        if (newValue !== oldDocument[key]) {
           doc[key] = newValue;
         }
       });
