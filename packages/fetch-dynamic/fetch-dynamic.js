@@ -4,6 +4,15 @@ LocalCollection.Cursor.prototype.fetchDynamic = function() {
     addedAt: function(document, atIndex) {
       data.splice(atIndex, 0, document);
     },
+    changedAt: function(newDocument, oldDocument, atIndex) {
+      var doc = data[atIndex];
+      _.each(doc, function(value, key) {
+        var newValue = newDocument[key];
+        if (value !== newValue) {
+          doc[key] = newValue;
+        }
+      });
+    },
     removedAt: function(oldDocument, atIndex) {
       data.splice(atIndex, 1);
     },
@@ -12,14 +21,8 @@ LocalCollection.Cursor.prototype.fetchDynamic = function() {
       data.splice(toIndex, 0, doc);
     }
   });
-  var changeObserver = this.observeChanges({
-    changed: function(id, fields) {
-      _.extend(_.findWhere(data, {_id: id}), fields);
-    }
-  });
   data.stop = function() {
     observer.stop();
-    changeObserver.stop();
   };
   return data;
 };
