@@ -8,8 +8,8 @@ LocalCollection.Cursor.prototype.fetchDynamic = function() {
       data.splice(atIndex, 1);
     },
     movedTo: function(document, fromIndex, toIndex) {
-      var message = data.splice(fromIndex, 1)[0];
-      data.splice(toIndex, 0, message);
+      var doc = data.splice(fromIndex, 1)[0];
+      data.splice(toIndex, 0, doc);
     }
   });
   var changeObserver = this.observeChanges({
