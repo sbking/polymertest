@@ -1,0 +1,25 @@
+<polymer-element name="language-model" attributes="find findAlphabetic">
+  <script>
+  (function() {
+
+    var model = {
+      find: function() {
+        return Languages.find().fetchDynamic();
+      },
+      findAlphabetic: function() {
+        return Languages.find({}, {sort: {name: 1}}).fetchDynamic();
+      },
+      add: function(name) {
+        Languages.insert({name: name});
+      }
+    };
+
+    Polymer({
+      ready: function() {
+        _.extend(this, model);
+      }
+    });
+
+  })();
+  </script>
+</polymer-element>

@@ -1,0 +1,22 @@
+<link rel="import" href="/elements/language-model.html">
+<link rel="import" href="/elements/food-model.html">
+<link rel="import" href="/elements/toggle-list.html">
+
+<polymer-element name="option-list" attributes="collection">
+  <template>
+    <language-model id="language"></language-model>
+    <food-model id="food"></food-model>
+    <toggle-list toggles="{{toggles}}"></toggle-list>
+  </template>
+  <script>
+    Polymer({
+      ready: function() {
+        var model = this.$[this.collection] || this.$.language;
+        this.toggles = model.find();
+      },
+      detached: function() {
+        this.toggles.stop();
+      }
+    });
+  </script>
+</polymer-element>

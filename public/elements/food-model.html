@@ -1,0 +1,25 @@
+<polymer-element name="food-model" attributes="find findAlphabetic">
+  <script>
+  (function() {
+
+    var model = {
+      find: function() {
+        return Foods.find().fetchDynamic();
+      },
+      findAlphabetic: function() {
+        return Foods.find({}, {sort: {name: 1}}).fetchDynamic();
+      },
+      add: function(name) {
+        Foods.insert({name: name});
+      }
+    };
+
+    Polymer({
+      ready: function() {
+        _.extend(this, model);
+      }
+    });
+
+  })();
+  </script>
+</polymer-element>
